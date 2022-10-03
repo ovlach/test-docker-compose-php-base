@@ -2,8 +2,26 @@ version: '3.1'
 
 services:
   php:
-    image: php:7.4-apache
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.myphp
     ports:
       - 80:80
     volumes:
       - ./src:/var/www/html/
+
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mojeuzasneheslo
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
